@@ -45,11 +45,16 @@
   width: 40px;
 }
 
-.key__name {
+.key__name,
+.key__note-name {
   position: absolute;
   bottom: 20px;
   left: 0;
   right: 0;
   text-align: center;
   font-size: 1.2rem;
+}
+
+.key__note-name {
+  display: none;
 }
