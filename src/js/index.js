@@ -20,11 +20,9 @@ const keyboardKeyToIntervalMap = {
   "'": 17,
 };
 
-const keys = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B' ];
+const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
 function onActiveKeysChange() {
-  
-
   console.log(`Active Keys: ${Array.from(activeKeys).join(', ')}`);
 }
 
