@@ -30,8 +30,8 @@ function onActiveKeysChange() {
   for (let interval = 0; interval < numIntervals; interval++) {
     const keyEl = document.querySelector(`[data-key-interval="${interval}"`);
     if (activeIntervals.has(interval)) {
+      // enable highlight css
       keyEl.classList.add('key--enabled');
-      // TODO: enable highlight css
 
       // identify active note
       const octaveOffset = Math.floor(interval / numNotes);
@@ -39,7 +39,7 @@ function onActiveKeysChange() {
       const note = notes[interval % numNotes];
       activeNotes.push({ octave, note });
     } else {
-      // TODO: disable highlight css
+      // disable highlight css
       keyEl.classList.remove('key--enabled');
     }
   }
