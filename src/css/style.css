@@ -15,6 +15,8 @@
   position: relative;
   cursor: pointer;
   border: none;
+  color: black;
+  background: white;
 }
 
 .key--natural-note {
@@ -22,6 +24,12 @@
   color: black;
   height: 100%;
   background: white;
+}
+
+.key.key--enabled,
+.key--natural-note.key--enabled {
+  color: white;
+  background: blue;
 }
 
 .keyboard li:not(:first-child) .key {
