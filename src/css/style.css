@@ -1,0 +1,47 @@
+/* Ref: https://www.codingnepalweb.com/playable-piano-html-css-javascript/ */
+
+.keyboard {
+  position: relative;
+  margin: 0 auto;
+  height: 300px;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  width: fit-content;
+  border: 1px solid black;
+}
+
+.key {
+  position: relative;
+  cursor: pointer;
+  border: none;
+}
+
+.key--natural-note {
+  width: 80px;
+  color: black;
+  height: 100%;
+  background: white;
+}
+
+.keyboard li:not(:first-child) .key {
+  border-left: 1px solid black;
+}
+
+.key--accidental-note {
+  color: white;
+  z-index: 1;
+  margin: 0 -20px 0 -20px;
+  height: 67%;
+  background: black;
+  width: 40px;
+}
+
+.key__name {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 1.2rem;
+}
