@@ -23,6 +23,8 @@ const keyboardKeyToIntervalMap = {
 const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
 function onActiveKeysChange() {
+
+
   console.log(`Active Keys: ${Array.from(activeKeys).join(', ')}`);
 }
 
@@ -41,3 +43,5 @@ document.addEventListener('keyup', (e) => {
     onActiveKeysChange();
   }
 });
+
+// Ref: https://en.wikipedia.org/wiki/Scientific_pitch_notation#Table_of_note_frequencies
