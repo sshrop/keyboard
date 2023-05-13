@@ -21,6 +21,28 @@ const keyboardKeyToIntervalMap = {
 };
 const numIntervals = Object.keys(keyboardKeyToIntervalMap).length;
 
+// Ref: http://www.phys.unsw.edu.au/jw/notes.html
+const noteToFrequency = {
+  'C4': 261.63,
+  'C#4': 277.18,
+  'D4': 293.67,
+  'D#4': 311.13,
+  'E4': 329.63,
+  'F4': 349.23,
+  'F#4': 369.99,
+  'G4': 392.0,
+  'G#4': 415.3,
+  'A4': 440.0,
+  'A#4': 466.16,
+  'B4': 493.88,
+  'C5': 523.25,
+  'C#5': 554.37,
+  'D5': 587.33,
+  'D#5': 622.25,
+  'E5': 659.26,
+  'F5': 698.46,
+};
+
 const BASE_OCTAVE = 4;
 const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 const numNotes = notes.length;
@@ -38,7 +60,8 @@ class SoundController {
   }
 
   playNote({ note }) {
-    this.oscillatorNode.frequency.value = 440.0;
+    const frequency = noteToFrequency[`${note.note}${note.octave}`];
+    this.oscillatorNode.frequency.value = frequency;
     this.gainNode.gain.value = 0.2;
   }
 
