@@ -25,6 +25,30 @@ const BASE_OCTAVE = 4;
 const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 const numNotes = notes.length;
 
+class SoundController {
+  constructor() {
+    this.audioContext = new AudioContext();
+    this.oscillatorNode = new OscillatorNode(this.audioContext);
+    this.gainNode = new GainNode(this.audioContext, { gain: 0 });
+
+    this.oscillatorNode.connect(this.gainNode);
+    this.gainNode.connect(this.audioContext.destination);
+
+    this.oscillatorNode.start();
+  }
+
+  playNote({ note }) {
+    this.oscillatorNode.frequency.value = 440.0;
+    this.gainNode.gain.value = 0.2;
+  }
+
+  stop() {
+    this.gainNode.gain.value = 0.0;
+  }
+}
+
+const soundController = new SoundController();
+
 function onActiveKeysChange() {
   let activeNotes = [];
   for (let interval = 0; interval < numIntervals; interval++) {
@@ -44,7 +68,14 @@ function onActiveKeysChange() {
     }
   }
 
-  console.log(`Active Notes: ${JSON.stringify(activeNotes, null, 2)}`);
+  const activeNote = activeNotes[0];
+  if (activeNote) {
+    soundController.playNote({ note: activeNote });
+  } else {
+    soundController.stop();
+  }
+
+  // console.log(`Active Notes: ${JSON.stringify(activeNotes, null, 2)}`);
 }
 
 document.addEventListener('keydown', (e) => {
