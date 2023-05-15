@@ -50,17 +50,12 @@ const numNotes = notes.length;
 class SoundController {
   constructor() {
     this.audioContext = new AudioContext();
-
-    const notes = Object.keys(noteToFrequency);
-    this.mergerNode = new ChannelMergerNode(this.audioContext, {
-      numberOfInputs: notes.length,
-      channelInterpretation: 'discrete',
-    });
-
     this.masterGainNode = new GainNode(this.audioContext, { gain: 0.5 });
 
     this.gainNodes = {};
     this.oscillatorNodes = {};
+
+    const notes = Object.keys(noteToFrequency);
     notes.forEach((note) => {
       const oscillatorNode = new OscillatorNode(this.audioContext);
       const frequency = noteToFrequency[note];
@@ -74,14 +69,11 @@ class SoundController {
 
       this.oscillatorNodes[note] = oscillatorNode;
       this.gainNodes[note] = gainNode;
+
+      oscillatorNode.start();
     });
 
     this.masterGainNode.connect(this.audioContext.destination);
-
-    Object.keys(this.oscillatorNodes).forEach((key) => {
-      const oscillatorNode = this.oscillatorNodes[key];
-      oscillatorNode.start();
-    });
   }
 
   playNotes({ notes }) {
