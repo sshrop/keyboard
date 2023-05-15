@@ -50,23 +50,52 @@ const numNotes = notes.length;
 class SoundController {
   constructor() {
     this.audioContext = new AudioContext();
-    this.oscillatorNode = new OscillatorNode(this.audioContext);
-    this.gainNode = new GainNode(this.audioContext, { gain: 0 });
 
-    this.oscillatorNode.connect(this.gainNode);
-    this.gainNode.connect(this.audioContext.destination);
+    const notes = Object.keys(noteToFrequency);
+    this.mergerNode = new ChannelMergerNode(this.audioContext, {
+      numberOfInputs: notes.length,
+      channelInterpretation: 'discrete',
+    });
 
-    this.oscillatorNode.start();
+    this.masterGainNode = new GainNode(this.audioContext, { gain: 0.5 });
+
+    this.gainNodes = {};
+    this.oscillatorNodes = {};
+    notes.forEach((note) => {
+      const oscillatorNode = new OscillatorNode(this.audioContext);
+      const frequency = noteToFrequency[note];
+      oscillatorNode.frequency.value = frequency;
+
+      const gainNode = new GainNode(this.audioContext, { gain: 0 });
+      oscillatorNode.connect(gainNode);
+
+      // Ref: https://stackoverflow.com/a/53684515
+      gainNode.connect(this.masterGainNode);
+
+      this.oscillatorNodes[note] = oscillatorNode;
+      this.gainNodes[note] = gainNode;
+    });
+
+    this.masterGainNode.connect(this.audioContext.destination);
+
+    Object.keys(this.oscillatorNodes).forEach((key) => {
+      const oscillatorNode = this.oscillatorNodes[key];
+      oscillatorNode.start();
+    });
   }
 
-  playNote({ note }) {
-    const frequency = noteToFrequency[`${note.note}${note.octave}`];
-    this.oscillatorNode.frequency.value = frequency;
-    this.gainNode.gain.value = 0.2;
-  }
-
-  stop() {
-    this.gainNode.gain.value = 0.0;
+  playNotes({ notes }) {
+    const noteSet = new Set(notes.map((note) => `${note.note}${note.octave}`));
+    Object.keys(noteToFrequency).forEach((note) => {
+      const gainNode = this.gainNodes[note];
+      if (gainNode) {
+        if (noteSet.has(note)) {
+          gainNode.gain.value = 1.0;
+        } else {
+          gainNode.gain.value = 0.0;
+        }
+      }
+    });
   }
 }
 
@@ -91,12 +120,7 @@ function onActiveKeysChange() {
     }
   }
 
-  const activeNote = activeNotes[0];
-  if (activeNote) {
-    soundController.playNote({ note: activeNote });
-  } else {
-    soundController.stop();
-  }
+  soundController.playNotes({ notes: activeNotes });
 
   // console.log(`Active Notes: ${JSON.stringify(activeNotes, null, 2)}`);
 }
