@@ -94,7 +94,7 @@ class SoundController {
       } else {
         if (this.oscillatorNodes[note]) {
           // Ref: http://alemangui.github.io/ramp-to-value
-          const decayTimeSec = 0.15;
+          const decayTimeSec = 0.3;
           this.gainNodes[note].gain.exponentialRampToValueAtTime(
             0.0001,
             this.audioContext.currentTime + decayTimeSec
