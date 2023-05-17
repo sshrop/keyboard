@@ -26,13 +26,11 @@ body {
   padding: 0;
   display: flex;
   margin: 0;
-  /* border: 1px solid black; */
 }
 
 .key {
   position: relative;
   cursor: pointer;
-  /* border: none; */
   border: 1px solid #e5e3e3;
   color: black;
   background: white;
@@ -51,10 +49,6 @@ body {
   color: white;
   background: #5b84c4;
 }
-
-/* .keyboard li:not(:first-child) .key {
-  border-left: 1px solid black;
-} */
 
 .key--accidental-note {
   color: white;
