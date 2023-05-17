@@ -1,5 +1,11 @@
 /* Ref: https://www.codingnepalweb.com/playable-piano-html-css-javascript/ */
 
+:root {
+  --key-width: 90px;
+  --portrait-natural-key-height: 192px;
+  --portrait-accidental-key-height: 100px;
+}
+
 body {
   background: #e5e3e3;
 }
@@ -33,9 +39,9 @@ body {
 }
 
 .key--natural-note {
-  width: 90px;
+  width: var(--key-width);
   color: black;
-  height: 192px;
+  height: var(--portrait-natural-key-height);
   background: white;
   border-radius: 8px;
 }
@@ -53,10 +59,10 @@ body {
 .key--accidental-note {
   color: white;
   z-index: 1;
-  margin: 0 -45px 0 -45px;
-  height: 100px;
+  margin: 0 calc(var(--key-width) * -0.5);
+  height: var(--portrait-accidental-key-height);
   background: #353535;
-  width: 90px;
+  width: var(--key-width);
   border-radius: 8px;
 }
 
