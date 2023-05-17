@@ -35,7 +35,7 @@ body {
 .key.key--enabled,
 .key--natural-note.key--enabled {
   color: white;
-  background: blue;
+  background: #5b84c4;
 }
 
 /* .keyboard li:not(:first-child) .key {
@@ -47,7 +47,7 @@ body {
   z-index: 1;
   margin: 0 -25px 0 -25px;
   height: 50px;
-  background: black;
+  background: #353535;
   width: 50px;
   border-radius: 8px;
 }
