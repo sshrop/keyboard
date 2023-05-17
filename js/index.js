@@ -50,10 +50,14 @@ const numNotes = notes.length;
 class SoundController {
   constructor() {
     this.audioContext = new AudioContext();
-    this.masterGainNode = new GainNode(this.audioContext, { gain: 0.5 });
+    this.masterGainNode = new GainNode(this.audioContext, { gain: 0.2 });
+    this.dynamicsCompressorNode = new DynamicsCompressorNode(this.audioContext);
 
+    this.oscillatorNodes = {};
     this.gainNodes = {};
-    this.masterGainNode.connect(this.audioContext.destination);
+
+    this.masterGainNode.connect(this.dynamicsCompressorNode);
+    this.dynamicsCompressorNode.connect(this.audioContext.destination);
   }
 
   createOscillatorWithGain({ frequency }) {
@@ -73,15 +77,27 @@ class SoundController {
       if (noteSet.has(note)) {
         if (!this.gainNodes[note]) {
           const frequency = noteToFrequency[note];
-          this.gainNodes[note] = this.createOscillatorWithGain({ frequency });
+
+          this.oscillatorNodes[note] = new OscillatorNode(this.audioContext);
+          this.oscillatorNodes[note].frequency.value = frequency;
+
+          this.gainNodes[note] = new GainNode(this.audioContext);
+          this.oscillatorNodes[note].connect(this.gainNodes[note]);
 
           // Ref: https://stackoverflow.com/a/53684515
           this.gainNodes[note].connect(this.masterGainNode);
-          this.gainNodes[note].start();
+          this.oscillatorNodes[note].start();
+
+          // // Ref: https://stackoverflow.com/a/43561607/650817
+          // this.gainNodes[note].gain.setTargetAtTime(1.0, this.audioContext.currentTime, 1.0);
         }
       } else {
-        if (this.gainNodes[note]) {
-          this.gainNodes[note].stop();
+        if (this.oscillatorNodes[note]) {
+          // Ref: http://alemangui.github.io/ramp-to-value
+          this.gainNodes[note].gain.setTargetAtTime(0.0001, this.audioContext.currentTime, 0.1);
+          this.oscillatorNodes[note].stop(this.audioContext.currentTime + 0.1);
+
+          delete this.oscillatorNodes[note];
           delete this.gainNodes[note];
         }
       }
