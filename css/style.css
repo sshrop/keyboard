@@ -16,7 +16,6 @@ body {
 
 .keyboard {
   position: relative;
-  height: 100px;
   list-style: none;
   padding: 0;
   display: flex;
@@ -34,9 +33,9 @@ body {
 }
 
 .key--natural-note {
-  width: 60px;
+  width: 90px;
   color: black;
-  height: 100%;
+  height: 192px;
   background: white;
   border-radius: 8px;
 }
@@ -54,10 +53,10 @@ body {
 .key--accidental-note {
   color: white;
   z-index: 1;
-  margin: 0 -25px 0 -25px;
-  height: 50px;
+  margin: 0 -45px 0 -45px;
+  height: 100px;
   background: #353535;
-  width: 50px;
+  width: 90px;
   border-radius: 8px;
 }
 
