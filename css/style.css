@@ -1,5 +1,9 @@
 /* Ref: https://www.codingnepalweb.com/playable-piano-html-css-javascript/ */
 
+body {
+  background: #e5e3e3;
+}
+
 .keyboard {
   position: relative;
   margin: 0 auto;
@@ -8,13 +12,14 @@
   padding: 0;
   display: flex;
   width: fit-content;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 .key {
   position: relative;
   cursor: pointer;
-  border: none;
+  /* border: none; */
+  border: 1px solid #e5e3e3;
   color: black;
   background: white;
 }
@@ -24,6 +29,7 @@
   color: black;
   height: 100%;
   background: white;
+  border-radius: 8px;
 }
 
 .key.key--enabled,
@@ -32,9 +38,9 @@
   background: blue;
 }
 
-.keyboard li:not(:first-child) .key {
+/* .keyboard li:not(:first-child) .key {
   border-left: 1px solid black;
-}
+} */
 
 .key--accidental-note {
   color: white;
@@ -43,13 +49,14 @@
   height: 50px;
   background: black;
   width: 50px;
+  border-radius: 8px;
 }
 
 .key__name,
 .key__note-name {
   position: absolute;
-  bottom: 5px;
-  left: 5px;
+  bottom: 8px;
+  left: 8px;
   right: 0;
   text-align: start;
   font-size: 1.2rem;
