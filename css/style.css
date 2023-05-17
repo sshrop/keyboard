@@ -3,7 +3,7 @@
 .keyboard {
   position: relative;
   margin: 0 auto;
-  height: 300px;
+  height: 100px;
   list-style: none;
   padding: 0;
   display: flex;
@@ -20,7 +20,7 @@
 }
 
 .key--natural-note {
-  width: 80px;
+  width: 60px;
   color: black;
   height: 100%;
   background: white;
@@ -39,19 +39,19 @@
 .key--accidental-note {
   color: white;
   z-index: 1;
-  margin: 0 -20px 0 -20px;
-  height: 67%;
+  margin: 0 -25px 0 -25px;
+  height: 50px;
   background: black;
-  width: 40px;
+  width: 50px;
 }
 
 .key__name,
 .key__note-name {
   position: absolute;
-  bottom: 20px;
-  left: 0;
+  bottom: 5px;
+  left: 5px;
   right: 0;
-  text-align: center;
+  text-align: start;
   font-size: 1.2rem;
 }
 
