@@ -4,14 +4,23 @@ body {
   background: #e5e3e3;
 }
 
+.content {
+  margin: 0 auto;
+  width: fit-content;
+  display: flex;
+}
+
+.keyboard-wrapper {
+  display: inline-block;
+}
+
 .keyboard {
   position: relative;
-  margin: 0 auto;
   height: 100px;
   list-style: none;
   padding: 0;
   display: flex;
-  width: fit-content;
+  margin: 0;
   /* border: 1px solid black; */
 }
 
@@ -64,4 +73,16 @@ body {
 
 .key__note-name {
   display: none;
+}
+
+.github-mark-wrapper {
+  height: 32px;
+  align-self: flex-end;
+  margin: 0 0 2px 8px;
+}
+
+.github-mark {
+  display: inline-block;
+  height: 100%;
+  width: auto;
 }
