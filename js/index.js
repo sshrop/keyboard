@@ -60,16 +60,6 @@ class SoundController {
     this.dynamicsCompressorNode.connect(this.audioContext.destination);
   }
 
-  createOscillatorWithGain({ frequency }) {
-    const oscillatorNode = new OscillatorNode(this.audioContext);
-    oscillatorNode.frequency.value = frequency;
-
-    // const gainNode = new GainNode(this.audioContext, { gain: 1.0 });
-    // oscillatorNode.connect(gainNode);
-
-    return oscillatorNode;
-  }
-
   playNotes({ notes }) {
     // Ref: https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Simple_synth
     const noteSet = new Set(notes.map((note) => `${note.note}${note.octave}`));
@@ -105,15 +95,6 @@ class SoundController {
           delete this.gainNodes[note];
         }
       }
-
-      // const gainNode = this.gainNodes[note];
-      // if (gainNode) {
-      //   if (noteSet.has(note)) {
-      //     gainNode.gain.value = 1.0;
-      //   } else {
-      //     gainNode.gain.value = 0.0;
-      //   }
-      // }
     });
   }
 }
