@@ -143,4 +143,29 @@ document.addEventListener('keyup', (e) => {
   }
 });
 
+function notePressed(e) {
+  const dataset = e.currentTarget.dataset;
+  const interval = parseInt(dataset['keyInterval'], 10);
+  if (!activeIntervals.has(interval)) {
+    activeIntervals.add(interval);
+    onActiveKeysChange();
+  }
+}
+
+function noteReleased(e) {
+  const dataset = e.currentTarget.dataset;
+  const interval = parseInt(dataset['keyInterval'], 10);
+  if (activeIntervals.has(interval)) {
+    activeIntervals.delete(interval);
+    onActiveKeysChange();
+  }
+}
+
+const keys = document.getElementsByClassName('key');
+for (const key of keys) {
+  key.addEventListener('mousedown', notePressed);
+  key.addEventListener('mouseup', noteReleased);
+  key.addEventListener('mouseleave', noteReleased);
+}
+
 // Ref: https://en.wikipedia.org/wiki/Scientific_pitch_notation#Table_of_note_frequencies
