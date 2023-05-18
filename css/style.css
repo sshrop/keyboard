@@ -136,6 +136,10 @@ body {
     width: var(--key-width);
   }
 
+  .key {
+    justify-content: flex-start;
+  }
+
   .key__name-wrapper {
     transform: unset;
   }
