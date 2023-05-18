@@ -95,6 +95,7 @@ body {
   /* text-align: start; */
   /* text-align: end; */
   font-size: 1.2rem;
+  user-select: none;
 }
 
 .key__note-name {
