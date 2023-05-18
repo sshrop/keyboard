@@ -12,7 +12,11 @@ body {
 }
 
 .content {
-  margin: 8px auto 0 auto;
+  padding: 8px 0;
+}
+
+.content {
+  margin: 0 auto;
   width: fit-content;
   display: flex;
 }
@@ -123,6 +127,11 @@ body {
 /* Ref: https://stackoverflow.com/a/71472996 */
 @media screen and (min-width: 100vh) {
   /* the width is greater than the height; assume mobile */
+  .content {
+    margin: 8px auto 0 auto;
+    padding: 0;
+  }
+
   .keyboard {
     /* make keyboard horizontal */
     flex-direction: row;
