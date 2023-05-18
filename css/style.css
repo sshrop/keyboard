@@ -29,8 +29,6 @@ body {
   flex-direction: column-reverse;
 }
 
-/* Ref: https://stackoverflow.com/a/71472996 */
-
 .key {
   position: relative;
   cursor: pointer;
@@ -44,8 +42,6 @@ body {
 }
 
 .item--natural-note {
-  /* width: var(--key-width); */
-  /* height: var(--portrait-natural-key-height); */
   width: var(--portrait-natural-key-height);
   height: var(--key-width);
 }
@@ -68,9 +64,6 @@ body {
   margin: calc(var(--key-width) * -0.5) 0;
   width: var(--portrait-accidental-key-height);
   height: var(--key-width);
-  /* margin: 0 calc(var(--key-width) * -0.5);
-  height: var(--portrait-accidental-key-height);
-  width: var(--key-width); */
 }
 
 .key--accidental-note {
@@ -108,13 +101,40 @@ body {
 }
 
 .github-mark-wrapper {
-  height: 32px;
+  display: flex;
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
   align-self: flex-end;
-  margin: 0 0 2px 8px;
+  margin: 0 0 0 8px;
 }
 
 .github-mark {
   display: inline-block;
-  height: 100%;
-  width: auto;
+  height: 30px;
+  width: 30px;
+}
+
+/* Ref: https://stackoverflow.com/a/71472996 */
+@media screen and (min-width: 100vh) {
+  /* the width is greater than the height; assume mobile */
+  .keyboard {
+    /* make keyboard horizontal */
+    flex-direction: row;
+  }
+
+  .item--natural-note {
+    width: var(--key-width);
+    height: var(--portrait-natural-key-height);
+  }
+  .item--accidental-note {
+    margin: 0 calc(var(--key-width) * -0.5);
+    height: var(--portrait-accidental-key-height);
+    width: var(--key-width);
+  }
+
+  .key__name-wrapper {
+    transform: unset;
+  }
 }
