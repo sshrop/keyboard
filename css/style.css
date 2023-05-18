@@ -108,6 +108,7 @@ body {
   justify-content: center;
   align-self: flex-end;
   margin: 0 0 0 8px;
+  transform: rotate(-90deg);
 }
 
 .github-mark {
@@ -135,6 +136,10 @@ body {
   }
 
   .key__name-wrapper {
+    transform: unset;
+  }
+
+  .github-mark-wrapper {
     transform: unset;
   }
 }
