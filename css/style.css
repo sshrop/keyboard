@@ -122,6 +122,8 @@ body {
   display: inline-block;
   height: 30px;
   width: 30px;
+  -webkit-user-select: none; /* Safari */
+  user-select: none; /* Standard syntax */
 }
 
 /* Ref: https://stackoverflow.com/a/71472996 */
