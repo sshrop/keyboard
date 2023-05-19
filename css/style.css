@@ -27,10 +27,6 @@ body {
   transform: translate(calc(var(--github-icon-size) * 0.5), 0);
 }
 
-.keyboard-wrapper {
-  display: inline-block;
-}
-
 .keyboard {
   position: relative;
   list-style: none;
@@ -97,13 +93,6 @@ body {
 
 .key__name,
 .key__note-name {
-  /* position: absolute;
-  bottom: 8px;
-  right: 8px;
-  transform: rotate(-90deg); */
-  /* left: 8px; */
-  /* text-align: start; */
-  /* text-align: end; */
   font-size: 1.2rem;
   -webkit-user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
