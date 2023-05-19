@@ -71,15 +71,20 @@ class SoundController {
           this.oscillatorNodes[note] = new OscillatorNode(this.audioContext);
           this.oscillatorNodes[note].frequency.value = frequency;
 
-          this.gainNodes[note] = new GainNode(this.audioContext);
+          this.gainNodes[note] = new GainNode(this.audioContext, { gain: 0.0 });
           this.oscillatorNodes[note].connect(this.gainNodes[note]);
 
           // Ref: https://stackoverflow.com/a/53684515
           this.gainNodes[note].connect(this.masterGainNode);
           this.oscillatorNodes[note].start();
 
-          // // Ref: https://stackoverflow.com/a/43561607/650817
-          // this.gainNodes[note].gain.setTargetAtTime(1.0, this.audioContext.currentTime, 1.0);
+          // Ref: https://stackoverflow.com/a/43561607/650817
+          const attackTimeSec = 0.2;
+          this.gainNodes[note].gain.setTargetAtTime(
+            1.0,
+            this.audioContext.currentTime,
+            attackTimeSec
+          );
         }
       } else {
         if (this.oscillatorNodes[note]) {
