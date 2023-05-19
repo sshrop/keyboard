@@ -19,7 +19,6 @@ body {
 }
 
 .content {
-  margin: 0 auto;
   display: flex;
 }
 
@@ -132,8 +131,8 @@ body {
 @media screen and (min-width: 100vh) {
   /* the width is greater than the height; assume mobile */
   .content {
-    margin: 0 auto;
-    padding: 0;
+    padding: 8px 0 0 0;
+    justify-content: center;
   }
 
   .keyboard {
