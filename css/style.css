@@ -17,6 +17,8 @@ body {
   margin: 0;
   padding: 0;
   touch-action: pan-x pan-y;
+  -webkit-user-select: none; /* Safari */
+  user-select: none; /* Standard syntax */
 }
 
 .content {
@@ -115,8 +117,6 @@ body {
   display: inline-block;
   height: 45%;
   width: 45%;
-  -webkit-user-select: none; /* Safari */
-  user-select: none; /* Standard syntax */
 }
 
 /* Ref: https://stackoverflow.com/a/71472996 */
