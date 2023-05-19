@@ -6,19 +6,20 @@
   --portrait-accidental-key-height: 100px;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   background: #e5e3e3;
   margin: 0;
+  padding: 0;
   touch-action: pan-x pan-y;
 }
 
 .content {
-  padding: 8px 0;
-}
-
-.content {
   margin: 0 auto;
-  width: fit-content;
   display: flex;
 }
 
@@ -131,7 +132,7 @@ body {
 @media screen and (min-width: 100vh) {
   /* the width is greater than the height; assume mobile */
   .content {
-    margin: 8px auto 0 auto;
+    margin: 0 auto;
     padding: 0;
   }
 
