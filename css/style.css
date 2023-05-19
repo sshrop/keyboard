@@ -21,10 +21,9 @@ body {
 
 .content {
   display: flex;
-  padding: 8px 0;
+  /* add padding to balance out horizontal centering of keyboard in landscape*/
+  padding: 16px 0 16px calc(var(--github-icon-size));
   justify-content: center;
-  /* adjust translation offset to equal icon size to make keyboard center in landscape */
-  transform: translate(calc(var(--github-icon-size) * 0.5), 0);
 }
 
 .keyboard {
