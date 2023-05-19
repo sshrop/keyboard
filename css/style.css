@@ -4,7 +4,7 @@
   --key-width: 90px;
   --portrait-natural-key-height: 192px;
   --portrait-accidental-key-height: 100px;
-  --github-icon-size: 100px;
+  --github-icon-size: var(--key-width);
 }
 
 html,
@@ -21,7 +21,7 @@ body {
 
 .content {
   display: flex;
-  padding: 0;
+  padding: 8px 0;
   justify-content: center;
   /* adjust translation offset to equal icon size to make keyboard center in landscape */
   transform: translate(calc(var(--github-icon-size) * 0.5), 0);
