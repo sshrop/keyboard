@@ -120,11 +120,13 @@ body {
 }
 
 /* Ref: https://stackoverflow.com/a/71472996 */
-@media screen and (min-width: 100vh) {
+@media screen and (min-width: 768px) {
   /* the width is greater than the height; assume mobile */
   .content {
-    padding: 8px 0 0 0;
+    padding: 8px 16px 0 16px;
     transform: unset;
+    /* make sure content doesn't shrink beyond num keys + 1 (for github icon) */
+    min-width: calc(var(--key-width) * 12);
   }
 
   .keyboard {
