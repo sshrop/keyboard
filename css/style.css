@@ -4,7 +4,7 @@
   /* 11 natural keys, 1 key width for github logo, and 2 key widths for horizontal padding */
   --ideal-key-width: calc(100vw / 14);
 
-  --key-width: clamp(50px, var(--ideal-key-width), 100px);
+  --key-width: clamp(50px, var(--ideal-key-width), 90px);
 
   /* --key-width: 90px; */
   --portrait-natural-key-height: 192px;
@@ -129,6 +129,7 @@ body {
   /* the width is greater than the height; assume mobile */
   .content {
     margin: 0 auto;
+    width: fit-content;
     padding: 8px var(--key-width) 0 var(--key-width);
     transform: unset;
   }
