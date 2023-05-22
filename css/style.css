@@ -27,7 +27,7 @@ body {
 }
 
 .content {
-  display: flex;
+  /* display: flex; */
   /* add padding to balance out horizontal centering of keyboard in landscape*/
   padding: 16px 0 16px calc(var(--github-icon-size));
   justify-content: center;
@@ -37,7 +37,7 @@ body {
   position: relative;
   list-style: none;
   padding: 0;
-  display: flex;
+  display: inline-flex;
   margin: 0;
   flex-direction: column-reverse;
 }
@@ -110,24 +110,25 @@ body {
 
 .github-mark-wrapper {
   display: flex;
-  width: min(var(--github-icon-size), 11vw);
-  height: min(var(--github-icon-size), 11vw);
-  align-items: center;
   justify-content: center;
-  align-self: flex-end;
+  align-items: center;
+  height: var(--key-width);
+  /* width: 100%; */
+  /* height: 100%; */
+  /* align-self: flex-end; */
   transform: rotate(-90deg);
 }
 
 .github-mark {
-  display: inline-block;
-  height: 45%;
-  width: auto;
+  height: auto;
+  width: 45%;
 }
 
 /* Ref: https://stackoverflow.com/a/71472996 */
 @media screen and (min-width: 768px) {
   /* the width is greater than the height; assume mobile */
   .content {
+    margin: 0 auto;
     padding: 8px var(--key-width) 0 var(--key-width);
     transform: unset;
   }
@@ -137,9 +138,16 @@ body {
     flex-direction: row;
   }
 
-  .item--natural-note {
+  .item--natural-note,
+  .item--github-wrapper {
     width: var(--key-width);
     height: calc(var(--key-width) * 192 / 90);
+  }
+
+  .item--github-wrapper {
+    display: flex;
+    align-items: end;
+    justify-content: center;
   }
 
   .item--accidental-note {
