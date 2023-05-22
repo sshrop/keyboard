@@ -1,7 +1,12 @@
 /* Ref: https://www.codingnepalweb.com/playable-piano-html-css-javascript/ */
 
 :root {
-  --key-width: 90px;
+  /* 11 natural keys, 1 key width for github logo, and 2 key widths for horizontal padding */
+  --ideal-key-width: calc(100vw / 14);
+
+  --key-width: clamp(50px, var(--ideal-key-width), 100px);
+
+  /* --key-width: 90px; */
   --portrait-natural-key-height: 192px;
   --portrait-accidental-key-height: 100px;
   --github-icon-size: var(--key-width);
@@ -105,8 +110,8 @@ body {
 
 .github-mark-wrapper {
   display: flex;
-  width: var(--github-icon-size);
-  height: var(--github-icon-size);
+  width: min(var(--github-icon-size), 11vw);
+  height: min(var(--github-icon-size), 11vw);
   align-items: center;
   justify-content: center;
   align-self: flex-end;
@@ -116,17 +121,15 @@ body {
 .github-mark {
   display: inline-block;
   height: 45%;
-  width: 45%;
+  width: auto;
 }
 
 /* Ref: https://stackoverflow.com/a/71472996 */
 @media screen and (min-width: 768px) {
   /* the width is greater than the height; assume mobile */
   .content {
-    padding: 8px 16px 0 16px;
+    padding: 8px var(--key-width) 0 var(--key-width);
     transform: unset;
-    /* make sure content doesn't shrink beyond num keys + 1 (for github icon) */
-    min-width: calc(var(--key-width) * 12);
   }
 
   .keyboard {
@@ -136,12 +139,13 @@ body {
 
   .item--natural-note {
     width: var(--key-width);
-    height: var(--portrait-natural-key-height);
+    height: calc(var(--key-width) * 192 / 90);
   }
+
   .item--accidental-note {
-    margin: 0 calc(var(--key-width) * -0.5);
-    height: var(--portrait-accidental-key-height);
     width: var(--key-width);
+    height: calc(var(--key-width) * 100 / 90);
+    margin: 0 calc(var(--key-width) * -0.5);
   }
 
   .key {
