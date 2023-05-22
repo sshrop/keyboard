@@ -29,7 +29,9 @@ body {
 .content {
   /* display: flex; */
   /* add padding to balance out horizontal centering of keyboard in landscape*/
-  padding: 16px 0 16px calc(var(--github-icon-size));
+  margin: 0 auto;
+  width: fit-content;
+  padding: 16px 0;
   justify-content: center;
 }
 
@@ -54,9 +56,15 @@ body {
   align-items: end;
 }
 
-.item--natural-note {
-  width: var(--portrait-natural-key-height);
-  height: var(--key-width);
+.item--natural-note,
+.item--github-wrapper {
+  width: 192px;
+  height: 90px;
+}
+
+.item--github-wrapper {
+  display: flex;
+  justify-content: end;
 }
 
 .key--natural-note {
@@ -74,9 +82,9 @@ body {
 }
 
 .item--accidental-note {
-  margin: calc(var(--key-width) * -0.5) 0;
-  width: var(--portrait-accidental-key-height);
-  height: var(--key-width);
+  margin: -45px 0;
+  width: 100px;
+  height: 90px;
 }
 
 .key--accidental-note {
@@ -112,24 +120,19 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: var(--key-width);
-  /* width: 100%; */
-  /* height: 100%; */
-  /* align-self: flex-end; */
-  transform: rotate(-90deg);
+  height: 90px;
 }
 
 .github-mark {
   height: auto;
   width: 45%;
+  transform: rotate(-90deg);
 }
 
 /* Ref: https://stackoverflow.com/a/71472996 */
 @media screen and (min-width: 768px) {
   /* the width is greater than the height; assume mobile */
   .content {
-    margin: 0 auto;
-    width: fit-content;
     padding: 8px var(--key-width) 0 var(--key-width);
     transform: unset;
   }
@@ -146,9 +149,12 @@ body {
   }
 
   .item--github-wrapper {
-    display: flex;
     align-items: end;
     justify-content: center;
+  }
+
+  .github-mark-wrapper {
+    height: var(--key-width);
   }
 
   .item--accidental-note {
@@ -165,7 +171,7 @@ body {
     transform: unset;
   }
 
-  .github-mark-wrapper {
+  .github-mark {
     transform: unset;
   }
 }
