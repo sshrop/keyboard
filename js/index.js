@@ -126,8 +126,6 @@ function onActiveKeysChange() {
   }
 
   soundController.playNotes({ notes: activeNotes });
-
-  // console.log(`Active Notes: ${JSON.stringify(activeNotes, null, 2)}`);
 }
 
 document.addEventListener('keydown', (e) => {
@@ -166,11 +164,73 @@ function noteReleased(e) {
   }
 }
 
+// Ref: https://uxdesign.cc/implementing-a-custom-drag-event-function-in-javascript-and-three-js-dc79ee545d85
+let clientX, clientY, isMouseDown;
+function updateActiveNoteFromDrag() {
+  let interval;
+  if (isMouseDown) {
+    // limit interval activation to keyboard keys
+    const hitTest = document.elementsFromPoint(clientX, clientY);
+
+    // let accidental note take precedence
+    let el = hitTest.find((el) => el.classList.contains('key--accidental-note'));
+    if (!el) {
+      // fallback to natural note
+      el = hitTest.find((el) => el.classList.contains('key--natural-note'));
+    }
+
+    if (el) {
+      interval = parseInt(el.dataset['keyInterval'], 10);
+    }
+  }
+
+  // TODO: refactor so mouse and keyboard each drive their own input
+  // one active interval at a time
+  activeIntervals.clear();
+  if (typeof interval !== 'undefined') {
+    activeIntervals.add(interval);
+  }
+  onActiveKeysChange();
+}
+
+function onVirtualKeyboardMouseDown(e) {
+  isMouseDown = true;
+  clientX = e.clientX;
+  clientY = e.clientY;
+  updateActiveNoteFromDrag();
+}
+
+function onVirtualKeyboardMouseUp(e) {
+  isMouseDown = false;
+  clientX = undefined;
+  clientY = undefined;
+  updateActiveNoteFromDrag();
+}
+
+function onVirtualKeyboardMouseMove(e) {
+  clientX = e.clientX;
+  clientY = e.clientY;
+  updateActiveNoteFromDrag();
+}
+
+function onVirtualKeyboardMouseLeave(e) {
+  isMouseDown = false;
+  clientX = undefined;
+  clientY = undefined;
+  updateActiveNoteFromDrag();
+}
+
+const virtualKeyboardEl = document.getElementsByClassName('keyboard')[0];
+virtualKeyboardEl.addEventListener('mousedown', onVirtualKeyboardMouseDown);
+virtualKeyboardEl.addEventListener('mouseup', onVirtualKeyboardMouseUp);
+virtualKeyboardEl.addEventListener('mouseleave', onVirtualKeyboardMouseLeave);
+virtualKeyboardEl.addEventListener('mousemove', onVirtualKeyboardMouseMove);
+
 const keys = document.getElementsByClassName('key');
 for (const key of keys) {
-  key.addEventListener('mousedown', notePressed);
-  key.addEventListener('mouseup', noteReleased);
-  key.addEventListener('mouseleave', noteReleased);
+  // key.addEventListener('mousedown', notePressed);
+  // key.addEventListener('mouseup', noteReleased);
+  // key.addEventListener('mouseleave', noteReleased);
   key.addEventListener('touchstart', notePressed);
   key.addEventListener('touchend', noteReleased);
   key.addEventListener('touchcancel', noteReleased);
