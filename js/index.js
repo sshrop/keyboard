@@ -110,7 +110,7 @@ function onActiveKeysChange() {
   let activeNotes = [];
   for (let interval = 0; interval < numIntervals; interval++) {
     const keyEl = document.querySelector(`[data-key-interval="${interval}"`);
-    if (activeIntervals.has(interval)) {
+    if (activeIntervals.has(interval) || activeDragInterval === interval) {
       // enable highlight css
       keyEl.classList.add('key--enabled');
 
@@ -165,7 +165,7 @@ function noteReleased(e) {
 }
 
 // Ref: https://uxdesign.cc/implementing-a-custom-drag-event-function-in-javascript-and-three-js-dc79ee545d85
-let clientX, clientY, isMouseDown;
+let clientX, clientY, isMouseDown, activeDragInterval;
 function updateActiveNoteFromDrag() {
   let interval;
   if (isMouseDown) {
@@ -184,12 +184,8 @@ function updateActiveNoteFromDrag() {
     }
   }
 
-  // TODO: refactor so mouse and keyboard each drive their own input
-  // one active interval at a time
-  activeIntervals.clear();
-  if (typeof interval !== 'undefined') {
-    activeIntervals.add(interval);
-  }
+  // one active drag interval at a time; may be unset if hit test returns no elements
+  activeDragInterval = interval;
   onActiveKeysChange();
 }
 
