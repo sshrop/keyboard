@@ -224,9 +224,6 @@ document.addEventListener('mousemove', onVirtualKeyboardMouseMove);
 
 const keys = document.getElementsByClassName('key');
 for (const key of keys) {
-  // key.addEventListener('mousedown', notePressed);
-  // key.addEventListener('mouseup', noteReleased);
-  // key.addEventListener('mouseleave', noteReleased);
   key.addEventListener('touchstart', notePressed);
   key.addEventListener('touchend', noteReleased);
   key.addEventListener('touchcancel', noteReleased);
