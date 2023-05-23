@@ -189,27 +189,27 @@ function updateActiveNoteFromDrag() {
   onActiveKeysChange();
 }
 
-function onVirtualKeyboardMouseDown(e) {
+function onDocumentMouseDown(e) {
   isMouseDown = true;
   clientX = e.clientX;
   clientY = e.clientY;
   updateActiveNoteFromDrag();
 }
 
-function onVirtualKeyboardMouseUp(e) {
+function onDocumentMouseUp(e) {
   isMouseDown = false;
   clientX = undefined;
   clientY = undefined;
   updateActiveNoteFromDrag();
 }
 
-function onVirtualKeyboardMouseMove(e) {
+function onDocumentMouseMove(e) {
   clientX = e.clientX;
   clientY = e.clientY;
   updateActiveNoteFromDrag();
 }
 
-function onVirtualKeyboardMouseLeave(e) {
+function onDocumentMouseLeave(e) {
   isMouseDown = false;
   clientX = undefined;
   clientY = undefined;
@@ -217,10 +217,10 @@ function onVirtualKeyboardMouseLeave(e) {
 }
 
 // add drag listener to entire body
-document.addEventListener('mousedown', onVirtualKeyboardMouseDown);
-document.addEventListener('mouseup', onVirtualKeyboardMouseUp);
-document.addEventListener('mouseleave', onVirtualKeyboardMouseLeave);
-document.addEventListener('mousemove', onVirtualKeyboardMouseMove);
+document.addEventListener('mousedown', onDocumentMouseDown);
+document.addEventListener('mouseup', onDocumentMouseUp);
+document.addEventListener('mouseleave', onDocumentMouseLeave);
+document.addEventListener('mousemove', onDocumentMouseMove);
 
 const keys = document.getElementsByClassName('key');
 for (const key of keys) {
