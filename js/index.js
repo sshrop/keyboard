@@ -1,4 +1,5 @@
 const activeIntervals = new Set();
+const activeTouchIntervals = new Set();
 const keyboardKeyToIntervalMap = {
   'a': 0,
   'w': 1,
@@ -166,19 +167,10 @@ function noteReleased(e) {
 
 // Ref: https://uxdesign.cc/implementing-a-custom-drag-event-function-in-javascript-and-three-js-dc79ee545d85
 let clientX, clientY, isMouseDown, activeDragInterval;
-function updateActiveNoteFromDrag() {
+function updateActiveNoteFromMouseEvents() {
   let interval;
   if (isMouseDown) {
-    // limit interval activation to keyboard keys
-    const hitTest = document.elementsFromPoint(clientX, clientY);
-
-    // let accidental note take precedence
-    let el = hitTest.find((el) => el.classList.contains('key--accidental-note'));
-    if (!el) {
-      // fallback to natural note
-      el = hitTest.find((el) => el.classList.contains('key--natural-note'));
-    }
-
+    const el = getNoteAtPoint(clientX, clientY);
     if (el) {
       interval = parseInt(el.dataset['keyInterval'], 10);
     }
@@ -189,31 +181,69 @@ function updateActiveNoteFromDrag() {
   onActiveKeysChange();
 }
 
+function getNoteAtPoint(clientX, clientY) {
+  // limit interval activation to keyboard keys
+  const hitTest = document.elementsFromPoint(clientX, clientY);
+
+  // let accidental note take precedence
+  let el = hitTest.find((el) => el.classList.contains('key--accidental-note'));
+  if (!el) {
+    // fallback to natural note
+    el = hitTest.find((el) => el.classList.contains('key--natural-note'));
+  }
+  return el;
+}
+
 function onDocumentMouseDown(e) {
   isMouseDown = true;
   clientX = e.clientX;
   clientY = e.clientY;
-  updateActiveNoteFromDrag();
+  updateActiveNoteFromMouseEvents();
 }
 
 function onDocumentMouseUp(e) {
   isMouseDown = false;
   clientX = undefined;
   clientY = undefined;
-  updateActiveNoteFromDrag();
+  updateActiveNoteFromMouseEvents();
 }
 
 function onDocumentMouseMove(e) {
   clientX = e.clientX;
   clientY = e.clientY;
-  updateActiveNoteFromDrag();
+  updateActiveNoteFromMouseEvents();
 }
 
 function onDocumentMouseLeave(e) {
   isMouseDown = false;
   clientX = undefined;
   clientY = undefined;
-  updateActiveNoteFromDrag();
+  updateActiveNoteFromMouseEvents();
+}
+
+let touchPoints = new Set();
+function updateActiveNoteFromTouchEvents() {
+  for (const point of touchPoints) {
+    const [clientX, clientY] = point.split(',');
+    const el = getNoteAtPoint(clientX, clientY);
+    if (el) {
+      interval = parseInt(el.dataset['keyInterval'], 10);
+    }
+  }
+}
+
+function onDocumentTouchStart(e) {
+  updateActiveNoteFromTouchEvents();
+}
+
+function onDocumentTouchMove(e) {}
+
+function onDocumentTouchEnd(e) {
+  updateActiveNoteFromTouchEvents();
+}
+
+function onDocumentTouchCancel(e) {
+  updateActiveNoteFromTouchEvents();
 }
 
 // add drag listener to entire body
@@ -222,11 +252,9 @@ document.addEventListener('mouseup', onDocumentMouseUp);
 document.addEventListener('mouseleave', onDocumentMouseLeave);
 document.addEventListener('mousemove', onDocumentMouseMove);
 
-const keys = document.getElementsByClassName('key');
-for (const key of keys) {
-  key.addEventListener('touchstart', notePressed);
-  key.addEventListener('touchend', noteReleased);
-  key.addEventListener('touchcancel', noteReleased);
-}
+document.addEventListener('touchstart', onDocumentTouchStart);
+document.addEventListener('touchend', onDocumentTouchEnd);
+document.addEventListener('touchmove', onDocumentTouchMove);
+document.addEventListener('touchcancel', onDocumentTouchCancel);
 
 // Ref: https://en.wikipedia.org/wiki/Scientific_pitch_notation#Table_of_note_frequencies
