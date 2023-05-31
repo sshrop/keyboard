@@ -51,13 +51,26 @@ class SoundController {
   constructor() {
     this.audioContext = new AudioContext();
     this.masterGainNode = new GainNode(this.audioContext, { gain: 0.2 });
+    this.bitCrusherNode = new WaveShaperNode(this.audioContext);
     this.dynamicsCompressorNode = new DynamicsCompressorNode(this.audioContext);
 
     this.oscillatorNodes = {};
     this.gainNodes = {};
 
+    this.bitCrusherNode.connect(this.masterGainNode);
     this.masterGainNode.connect(this.dynamicsCompressorNode);
     this.dynamicsCompressorNode.connect(this.audioContext.destination);
+
+    const bitDepth = 2;
+    const numLevels = Math.pow(2, bitDepth);
+    const numSamples = 65536;
+    const curve = new Float32Array(numSamples);
+    for (let n = 0; n < numSamples; n++) {
+      const x = (n * numLevels) / numSamples;
+      const y = Math.floor(x);
+      curve[n] = (2 * y + 1) / numLevels - 1;
+    }
+    this.bitCrusherNode.curve = curve;
   }
 
   playNotes({ notes }) {
@@ -75,7 +88,7 @@ class SoundController {
           this.oscillatorNodes[note].connect(this.gainNodes[note]);
 
           // Ref: https://stackoverflow.com/a/53684515
-          this.gainNodes[note].connect(this.masterGainNode);
+          this.gainNodes[note].connect(this.bitCrusherNode);
           this.oscillatorNodes[note].start();
 
           // Ref: https://stackoverflow.com/a/43561607/650817
