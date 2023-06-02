@@ -134,7 +134,8 @@ body {
 }
 
 .waveform-option-toggle {
-  display: inline-flex;
+  display: flex;
+  margin: 8px 0 0 0;
 }
 
 .waveform-option {
@@ -165,7 +166,8 @@ body {
 }
 
 .waveform-icon-wrapper {
-  width: calc(var(--key-width) - 16px);
+  /* line up format with key height */
+  width: calc(var(--portrait-natural-key-height) / 4 - 16px);
   padding: 8px;
 }
 
@@ -218,5 +220,10 @@ body {
 
   .github-mark {
     transform: unset;
+  }
+
+  .waveform-icon-wrapper {
+    width: calc(var(--key-width) - 16px);
+    padding: 8px;
   }
 }
