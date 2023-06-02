@@ -68,7 +68,7 @@ class SoundController {
         if (!this.gainNodes[note]) {
           const frequency = noteToFrequency[note];
 
-          this.oscillatorNodes[note] = new OscillatorNode(this.audioContext);
+          this.oscillatorNodes[note] = new OscillatorNode(this.audioContext, { type: 'triangle' });
           this.oscillatorNodes[note].frequency.value = frequency;
 
           this.gainNodes[note] = new GainNode(this.audioContext, { gain: 0.0 });
