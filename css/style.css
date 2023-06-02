@@ -129,6 +129,32 @@ body {
   transform: rotate(-90deg);
 }
 
+.waveform-option-toggle {
+  display: inline-flex;
+}
+
+.waveform-option {
+  display: none;
+}
+
+.waveform-option-label {
+  background: red;
+  cursor: pointer;
+}
+
+.waveform-option:checked + .waveform-option-label {
+  background: white;
+}
+
+.waveform-icon-wrapper {
+  height: 50px;
+}
+
+.waveform-icon-wrapper svg {
+  height: 100%;
+  width: auto;
+}
+
 /* Ref: https://stackoverflow.com/a/71472996 */
 @media screen and (min-width: 768px) {
   /* the width is greater than the height; assume mobile */

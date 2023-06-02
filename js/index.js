@@ -224,7 +224,7 @@ function onDocumentMouseLeave(e) {
 }
 
 function updateWaveformType() {
-  const selectedEl = document.querySelector('.wave-form-option:checked');
+  const selectedEl = document.querySelector('.waveform-option:checked');
   const selectedValue = selectedEl.value || 'sine';
   soundController.setWaveformType(selectedValue);
 }
@@ -242,7 +242,7 @@ for (const key of keys) {
   key.addEventListener('touchcancel', noteReleased);
 }
 
-const waveFormOptions = document.getElementsByClassName('wave-form-option');
+const waveFormOptions = document.getElementsByClassName('waveform-option');
 for (const option of waveFormOptions) {
   option.addEventListener('click', function (e) {
     updateWaveformType();
