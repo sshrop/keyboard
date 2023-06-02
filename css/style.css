@@ -147,6 +147,7 @@ body {
 }
 
 .waveform-option:checked + .waveform-option-label {
+  color: #fff;
   background: var(--button-color-active);
 }
 
