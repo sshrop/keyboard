@@ -10,6 +10,10 @@
   --portrait-natural-key-height: 192px;
   --portrait-accidental-key-height: 100px;
   --github-icon-size: var(--key-width);
+
+  --waveform-toggle-border-radius: 8px;
+
+  --button-color-active: #5b84c4;
 }
 
 html,
@@ -78,7 +82,7 @@ body {
 .key.key--enabled,
 .key--natural-note.key--enabled {
   color: white;
-  background: #5b84c4;
+  background: var(--button-color-active);
 }
 
 .item--accidental-note {
@@ -138,12 +142,20 @@ body {
 }
 
 .waveform-option-label {
-  background: red;
+  background: white;
   cursor: pointer;
 }
 
 .waveform-option:checked + .waveform-option-label {
-  background: white;
+  background: var(--button-color-active);
+}
+
+.waveform-option-label:first-of-type {
+  border-radius: var(--waveform-toggle-border-radius) 0 0 var(--waveform-toggle-border-radius);
+}
+
+.waveform-option-label:last-of-type {
+  border-radius: 0 var(--waveform-toggle-border-radius) var(--waveform-toggle-border-radius) 0;
 }
 
 .waveform-icon-wrapper {
