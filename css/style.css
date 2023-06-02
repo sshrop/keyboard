@@ -13,7 +13,7 @@
 
   --waveform-toggle-border-radius: 8px;
 
-  --button-color-active: #5b84c4;
+  --button-color-active: rgb(0, 122, 255);
 }
 
 html,
@@ -146,6 +146,11 @@ body {
   cursor: pointer;
 }
 
+.waveform-option:not(:checked):hover + .waveform-option-label {
+  color: white;
+  background: rgb(108, 108, 112);
+}
+
 .waveform-option:checked + .waveform-option-label {
   color: #fff;
   background: var(--button-color-active);
@@ -160,12 +165,13 @@ body {
 }
 
 .waveform-icon-wrapper {
-  height: 50px;
+  width: calc(var(--key-width) - 16px);
+  padding: 8px;
 }
 
 .waveform-icon-wrapper svg {
-  height: 100%;
-  width: auto;
+  height: auto;
+  width: 100%;
 }
 
 /* Ref: https://stackoverflow.com/a/71472996 */
