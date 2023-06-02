@@ -58,6 +58,8 @@ class SoundController {
 
     this.masterGainNode.connect(this.dynamicsCompressorNode);
     this.dynamicsCompressorNode.connect(this.audioContext.destination);
+
+    this.waveFormType = 'sine'; // default
   }
 
   playNotes({ notes }) {
@@ -68,7 +70,8 @@ class SoundController {
         if (!this.gainNodes[note]) {
           const frequency = noteToFrequency[note];
 
-          this.oscillatorNodes[note] = new OscillatorNode(this.audioContext, { type: 'triangle' });
+          const type = this.waveFormType;
+          this.oscillatorNodes[note] = new OscillatorNode(this.audioContext, { type });
           this.oscillatorNodes[note].frequency.value = frequency;
 
           this.gainNodes[note] = new GainNode(this.audioContext, { gain: 0.0 });
@@ -101,6 +104,10 @@ class SoundController {
         }
       }
     });
+  }
+
+  setWaveformType(type) {
+    this.waveFormType = type;
   }
 }
 
@@ -216,6 +223,12 @@ function onDocumentMouseLeave(e) {
   updateActiveNoteFromDrag();
 }
 
+function updateWaveformType() {
+  const selectedEl = document.querySelector('.wave-form-option:checked');
+  const selectedValue = selectedEl.value || 'sine';
+  soundController.setWaveformType(selectedValue);
+}
+
 // add drag listener to entire body
 document.addEventListener('mousedown', onDocumentMouseDown);
 document.addEventListener('mouseup', onDocumentMouseUp);
@@ -228,5 +241,14 @@ for (const key of keys) {
   key.addEventListener('touchend', noteReleased);
   key.addEventListener('touchcancel', noteReleased);
 }
+
+const waveFormOptions = document.getElementsByClassName('wave-form-option');
+for (const option of waveFormOptions) {
+  option.addEventListener('click', function (e) {
+    updateWaveformType();
+  });
+}
+// initialize waveform type
+updateWaveformType();
 
 // Ref: https://en.wikipedia.org/wiki/Scientific_pitch_notation#Table_of_note_frequencies
